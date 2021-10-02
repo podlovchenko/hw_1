@@ -3,11 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import db from '../../entities/Database';
 import Image from '../../entities/Image';
 
-export const upload = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const upload = async (req: Request, res: Response) => {
     try {
         const { file } = req;
 

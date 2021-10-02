@@ -6,8 +6,12 @@ import db from '../../entities/Database';
 export const deleteImage = async (req: Request, res: Response) => {
     try {
         const imageId = req.params.id;
-
         const image = db.get(imageId);
+
+        if (!image) {
+            return res.status(404).send({ message: 'Image not found' });
+        }
+
         await removeFile(image.path);
 
         db.remove(imageId);
