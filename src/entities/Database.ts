@@ -18,7 +18,7 @@ class Database {
     getAll() {
         return Object.values(this.idToImage)
             .map((image) => image.toPublicJSON())
-            .sort((imageA, imageB) => imageB.createdAt - imageA.createdAt);
+            .sort((imageA, imageB) => imageB.uploadedAt - imageA.uploadedAt);
     }
 }
 

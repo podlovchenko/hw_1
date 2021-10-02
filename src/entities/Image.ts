@@ -4,23 +4,23 @@ import { nanoid } from 'nanoid';
 export default class Image {
     buffer: Buffer;
     size: number;
-    mimetype: string;
+    mimeType: string;
     id: string;
-    createdAt: number;
+    uploadedAt: number;
     path: string;
 
     constructor(
-        mimetype: string,
+        mimeType: string,
         size: number,
         path: string,
         id?: string,
-        createdAt?: number
+        uploadedAt?: number
     ) {
         this.path = path;
-        this.mimetype = mimetype;
+        this.mimeType = mimeType;
         this.size = size;
         this.id = id || nanoid();
-        this.createdAt = createdAt || Date.now();
+        this.uploadedAt = uploadedAt || Date.now();
 
         const img = fs.readFileSync(path);
         const encodeImage = img.toString('base64');
@@ -31,9 +31,9 @@ export default class Image {
     toPublicJSON() {
         return {
             size: this.size,
-            mimetype: this.mimetype,
+            mimeType: this.mimeType,
             id: this.id,
-            createdAt: this.createdAt,
+            uploadedAt: this.uploadedAt,
             path: this.path,
         };
     }
@@ -42,9 +42,9 @@ export default class Image {
         return {
             buffer: this.buffer,
             size: this.size,
-            mimetype: this.mimetype,
+            mimeType: this.mimeType,
             id: this.id,
-            createdAt: this.createdAt,
+            uploadedAt: this.uploadedAt,
             path: this.path,
         };
     }

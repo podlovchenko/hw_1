@@ -14,6 +14,6 @@ apiRouter.post('/upload', multerMiddleware, upload);
 apiRouter.get('/list', getList);
 apiRouter.get('/image/:id', getImage);
 apiRouter.delete('/image/:id', deleteImage);
-apiRouter.put('/merge', merge);
+apiRouter.get('/merge', merge);
 
 export { apiRouter };
