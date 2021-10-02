@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { replaceBackground } from 'backrem';
 import fs from 'fs';
+import sizeOf from 'image-size';
 
 import db from '../../entities/Database';
 
@@ -8,11 +9,25 @@ export const merge = async (req: Request, res: Response) => {
     try {
         const { front: frontId, back: backId, color, threshold } = req.query;
 
+        if (!frontId || !backId || !color || !threshold) {
+            return res.status(400).send();
+        }
+
         const frontImage = db.get(String(frontId));
         const backImage = db.get(String(backId));
 
         if (!frontImage || !backImage) {
             return res.status(404).send();
+        }
+
+        const frontSize = sizeOf(frontImage.path);
+        const backSize = sizeOf(backImage.path);
+
+        if (
+            frontSize.width !== backSize.width ||
+            frontSize.height !== backSize.height
+        ) {
+            return res.status(400).send();
         }
 
         const frontImageStream = fs.createReadStream(frontImage.path);
